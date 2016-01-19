@@ -1,0 +1,23 @@
+web:
+  build: .
+  command: 'bash -c ''/app/df_linux/dfhack'''
+  working_dir: /app/df_linux
+  environment:
+    PORT: 1235
+  ports:
+    - '1235:1235/udp'
+    - '5000:5000'
+  tty: true
+  stdin_open: false
+shell:
+  build: .
+  command: bash
+  working_dir: /app/df_linux
+  environment:
+    PORT: 1235
+  ports:
+    - '1235:1235/udp'
+  volumes:
+    - '.:/app/user'
+  tty: true
+  stdin_open: true

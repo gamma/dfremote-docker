@@ -1,0 +1,6 @@
+{
+  "name": "Dwarf Fortress Remote Server",
+  "description": "see: mifki/dfremote and mifki/defremote-docker",
+  "repository": "https://github.com/gamma/dfremote-docker",
+  "image": "heroku:cedar:14"
+}
