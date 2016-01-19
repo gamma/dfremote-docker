@@ -6,7 +6,6 @@ web:
     PORT: 1235
   ports:
     - '1235:1235/udp'
-    - '5000:5000'
   tty: true
   stdin_open: false
 shell:
@@ -18,6 +17,6 @@ shell:
   ports:
     - '1235:1235/udp'
   volumes:
-    - '.:/app/user'
+    - '.:/app/df_linux'
   tty: true
   stdin_open: true
