@@ -1,1 +1,1 @@
-web: /app/user/dfhack
+web: cd /app/user && ./dfhack
