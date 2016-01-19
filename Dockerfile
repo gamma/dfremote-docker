@@ -15,10 +15,10 @@ RUN dpkg --add-architecture i386 && apt-get update -y \
 RUN apt-get install -y wget unzip nmap net-tools
 
 # Clean up
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && mkdir /app
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && mkdir -p /app/user
 
 # Download & Unpack Dwarf Fortress
-RUN wget --no-check-certificate -qO- http://www.bay12games.com/dwarves/df_40_24_linux.tar.bz2 | tar -xj -C /app && rm /app/user/df_linux/libs/libstdc++.so.6
+RUN wget --no-check-certificate -qO- http://www.bay12games.com/dwarves/df_40_24_linux.tar.bz2 | tar -xj -C /app/user && rm /app/user/df_linux/libs/libstdc++.so.6
 
 # Download & Unpack DFHack
 RUN wget --no-check-certificate -qO- https://github.com/DFHack/dfhack/releases/download/0.40.24-r5/dfhack-0.40.24-r5-Linux-gcc-4.5.4.tar.bz2 | tar -xj -C /app/user/df_linux && rm -rf df_linux/hack/plugins/*
