@@ -15,16 +15,17 @@ RUN dpkg --add-architecture i386 && apt-get update -y \
 RUN apt-get install -y wget unzip nmap net-tools
 
 # Clean up
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && mkdir -p /app/user
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && mkdir -p /app
 
 # Download & Unpack Dwarf Fortress
-RUN wget --no-check-certificate -qO- http://www.bay12games.com/dwarves/df_40_24_linux.tar.bz2 | tar -xj -C /app/user && rm /app/user/libs/libstdc++.so.6
+RUN wget --no-check-certificate -qO- http://www.bay12games.com/dwarves/df_40_24_linux.tar.bz2 | tar -xj -C /app && rm /app/df_linux/libs/libstdc++.so.6
 
 # Download & Unpack DFHack
-RUN wget --no-check-certificate -qO- https://github.com/DFHack/dfhack/releases/download/0.40.24-r5/dfhack-0.40.24-r5-Linux-gcc-4.5.4.tar.bz2 | tar -xj -C /app/user && rm -rf df_linux/hack/plugins/*
+RUN wget --no-check-certificate -qO- https://github.com/DFHack/dfhack/releases/download/0.40.24-r5/dfhack-0.40.24-r5-Linux-gcc-4.5.4.tar.bz2 | tar -xj -C /app/df_linux && rm -rf /app/df_linux/hack/plugins/*
 
-RUN wget -q http://mifki.com/df/update/dfremote-updater.zip && unzip -j -d /app/user/hack/plugins dfremote-updater.zip 0.40.24-r5/linux/* && rm dfremote-updater.zip
-RUN wget -q http://mifki.com/df/update/dfremote-latest.zip && mkdir t && unzip -d t dfremote-latest.zip && mv t/0.40.24-r5/linux/* /app/user/hack/plugins/ && mv t/remote /app/user/hack/lua/ && rm -rf t && rm dfremote-latest.zip
+RUN wget -q http://mifki.com/df/update/dfremote-updater.zip && unzip -j -d /app/df_linux/hack/plugins dfremote-updater.zip 0.40.24-r5/linux/* && rm dfremote-updater.zip
+RUN wget -q http://mifki.com/df/update/dfremote-latest.zip && mkdir t && unzip -d t dfremote-latest.zip && mv t/0.40.24-r5/linux/* /app/df_linux/hack/plugins/ && mv t/remote /app/df_linux/hack/lua/ && rm -rf t && rm dfremote-latest.zip
+RUN mv /app/df_linux /app/user
 
 ADD init.txt /app/user/data/init/init.txt
 ADD dfhack.init /app/user/dfhack.init
