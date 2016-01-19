@@ -7,7 +7,7 @@ web:
   ports:
     - '1235:1235/udp'
   tty: true
-  stdin_open: false
+  stdin_open: true
 shell:
   build: .
   command: bash
@@ -17,6 +17,6 @@ shell:
   ports:
     - '1235:1235/udp'
   volumes:
-    - '.:/app/user'
+    - '.:/app/working'
   tty: true
   stdin_open: true
