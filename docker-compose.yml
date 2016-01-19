@@ -1,7 +1,7 @@
 web:
   build: .
-  command: 'bash -c ''/app/df_linux/dfhack'''
-  working_dir: /app/df_linux
+  command: 'bash -c ''/app/user/df_linux/dfhack'''
+  working_dir: /app/user/df_linux
   environment:
     PORT: 1235
   ports:
@@ -11,12 +11,12 @@ web:
 shell:
   build: .
   command: bash
-  working_dir: /app/df_linux
+  working_dir: /app/user/df_linux
   environment:
     PORT: 1235
   ports:
     - '1235:1235/udp'
   volumes:
-    - '.:/app/df_linux'
+    - '.:/app/user/df_linux'
   tty: true
   stdin_open: true
