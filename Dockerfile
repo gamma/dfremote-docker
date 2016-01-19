@@ -18,23 +18,23 @@ RUN apt-get install -y wget unzip nmap net-tools
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && mkdir -p /app/user
 
 # Download & Unpack Dwarf Fortress
-RUN wget --no-check-certificate -qO- http://www.bay12games.com/dwarves/df_40_24_linux.tar.bz2 | tar -xj -C /app/user && rm /app/user/df_linux/libs/libstdc++.so.6
+RUN wget --no-check-certificate -qO- http://www.bay12games.com/dwarves/df_40_24_linux.tar.bz2 | tar -xj -C /app/user && rm /app/user/libs/libstdc++.so.6
 
 # Download & Unpack DFHack
-RUN wget --no-check-certificate -qO- https://github.com/DFHack/dfhack/releases/download/0.40.24-r5/dfhack-0.40.24-r5-Linux-gcc-4.5.4.tar.bz2 | tar -xj -C /app/user/df_linux && rm -rf df_linux/hack/plugins/*
+RUN wget --no-check-certificate -qO- https://github.com/DFHack/dfhack/releases/download/0.40.24-r5/dfhack-0.40.24-r5-Linux-gcc-4.5.4.tar.bz2 | tar -xj -C /app/user && rm -rf df_linux/hack/plugins/*
 
-RUN wget -q http://mifki.com/df/update/dfremote-updater.zip && unzip -j -d /app/user/df_linux/hack/plugins dfremote-updater.zip 0.40.24-r5/linux/* && rm dfremote-updater.zip
-RUN wget -q http://mifki.com/df/update/dfremote-latest.zip && mkdir t && unzip -d t dfremote-latest.zip && mv t/0.40.24-r5/linux/* /app/user/df_linux/hack/plugins/ && mv t/remote /app/user/df_linux/hack/lua/ && rm -rf t && rm dfremote-latest.zip
+RUN wget -q http://mifki.com/df/update/dfremote-updater.zip && unzip -j -d /app/user/hack/plugins dfremote-updater.zip 0.40.24-r5/linux/* && rm dfremote-updater.zip
+RUN wget -q http://mifki.com/df/update/dfremote-latest.zip && mkdir t && unzip -d t dfremote-latest.zip && mv t/0.40.24-r5/linux/* /app/user/hack/plugins/ && mv t/remote /app/user/hack/lua/ && rm -rf t && rm dfremote-latest.zip
 
-ADD init.txt /app/user/df_linux/data/init/init.txt
-ADD dfhack.init /app/user/df_linux/dfhack.init
+ADD init.txt /app/user/data/init/init.txt
+ADD dfhack.init /app/user/dfhack.init
 
-WORKDIR /app/user/df_linux
+WORKDIR /app/user
 
 EXPOSE 1235/udp
 
-RUN mkdir /app/user/df_linux/data/save
-VOLUME /app/user/df_linux/data/save
+RUN mkdir /app/user/data/save
+VOLUME /app/user/data/save
 
-CMD /app/user/df_linux/dfhack
+CMD /app/user/dfhack
 
